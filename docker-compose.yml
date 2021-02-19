@@ -1,0 +1,21 @@
+version: '3.4'
+services:
+  mailhog:
+    image: mailhog/mailhog
+    ports:
+      - "9025:8025"
+  archiva:
+    image: xetusoss/archiva:latest
+    ports:
+      - "9082:8080"
+    volumes:
+      - type: volume
+        source: archiva-data-vol
+        target: /archiva-data
+    environment:
+      SMTP_HOST: mailhog
+      SMTP_PORT: 1025
+
+volumes:
+  archiva-data-vol:
+
